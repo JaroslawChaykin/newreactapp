@@ -1,0 +1,25 @@
+.post {
+    display: flex;
+    border: 2px solid teal;
+    margin-top: 15px;
+    justify-content: space-between;
+    align-items: center;
+}
+.post__content {
+    padding: 15px;
+}
+.post__btns {
+    height: 137px
+}
+.post__btns button {
+    height: 100%;
+    width: 137px;
+    border: none;
+    background: teal;
+    color: white;
+    transition: all 0.1s;
+}
+.post__btns button:hover {
+    background: #e31c33;
+}
+
