@@ -4,11 +4,11 @@ import Counter from '../Counter/Counter';
 
 const PostItem = (props) => {
     return (
-      <div className={'post'}>
+      <div className={'post-item'}>
           <div className="post__content">
               <strong>{props.count}. {props.post.title}</strong>
               <div>
-                  {props.post.description}
+                  {props.post.body}
               </div>
               <Counter />
           </div>

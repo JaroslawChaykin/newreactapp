@@ -1,9 +1,10 @@
 import React from 'react';
-import classes from './Select.css'
+import classes from './Select.module.css'
 
 const Select = ({ options, defoultValue, value, onChange }) => {
     return (
       <select
+        className={`g-style-input ${classes.select}`}
         value={value}
         onChange={event => onChange(event.target.value)}
       >

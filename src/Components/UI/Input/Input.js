@@ -3,7 +3,7 @@ import classes from './Input.module.css';
 
 const Input = ({type, ph, ...props}) => {
     return (
-      <input {...props} className={classes.input} type={type} placeholder={ph}/>
+      <input {...props} className={`g-style-input ${classes.input}`} type={type} placeholder={ph}/>
     );
 };
 

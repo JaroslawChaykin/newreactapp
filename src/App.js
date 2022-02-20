@@ -1,79 +1,53 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import PostItem from './Components/PostItem/PostItem';
-import Input from './Components/UI/Input/Input';
 import Button from './Components/UI/Button/Button';
 import PostFilter from './Components/PostFilter/PostFilter';
+import PostList from './Components/PostList/PostList';
+import Modal from './Components/Modal/Modal';
+import { usePosts } from './Hooks/usePosts';
+import PostForm from './Components/PostForm/PostForm';
+import axios from 'axios';
 
 function App() {
-    const [value, setValue] = useState('');
 
     const [posts, setPosts] = useState([
-        {id: 1, title: 'яя', description: 'бб'},
-        {id: 2, title: 'бб', description: 'аа'},
-        {id: 3, title: 'фф', description: 'яя'},
+        {id: 1, title: 'яя', body: 'бб'},
+        {id: 2, title: 'бб', body: 'аа'},
+        {id: 3, title: 'фф', body: 'яя'},
     ]);
 
-    const [postName, setPostName] = useState('');
-    const [postBody, setPostBody] = useState('');
-    const [btnDisabled, setbtnDisabled] = useState(true);
-
+    const [modal, setModal] = useState(false)
     const [filter, setFilter] = useState({sort: '', query: ''});
-
-    const addNewPost = () => {
-        const newPost = {
-            id: Date.now(),
-            title: postName,
-            description: postBody
-        };
-        setPosts([...posts, newPost]);
-        setPostName('');
-        setPostBody('');
-    };
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query)
 
     const deletePost = (item) => {
         setPosts(posts.filter((post) => post.id !== item.id));
     };
 
-    const sortedPosts = useMemo(() => {
-        console.log('Отработала');
-        if(filter.sort) {
-            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts
-    }, [filter.sort, posts]);
+    const createPost = (newPost) => {
+        setPosts([...posts, newPost])
+        setModal(false)
+    }
 
-    const sortedAndSearchedPosts = useMemo(() => {
-        return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query))
-    }, [filter.query, sortedPosts])
+    async function fetchPosts() {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
+        setPosts(response.data)
+    }
 
-    useEffect(() => {
-        (postName.length > 6 && postBody.length > 6) ? setbtnDisabled(false) : setbtnDisabled(true);
-    }, [postName.length, postBody.length]);
 
     return (
       <div className={'App'}>
-          <h1>{value}</h1>
-          <Input type={'text'} ph={'Title web'} onChange={(e) => setValue(e.target.value)}/>
-          <form>
-              <Input type={'text'} ph={'Title post'} value={postName} onChange={(e) => setPostName(e.target.value)}/>
-              <Input type={'text'} ph={'Description post'} value={postBody}
-                     onChange={(e) => setPostBody(e.target.value)}/>
-              <Button cb={addNewPost} title={'Создать пост'} disabled={btnDisabled}/>
-          </form>
-          <hr/>
+          <Modal visible={modal} setVisible={setModal}>
+              <h1>Создание поста</h1>
+              <PostForm create={createPost} />
+          </Modal>
+          <h1 className={'main-title'}>
+              <Button cb={() => setModal(true)} title={'+'} />
+              <Button cb={fetchPosts} title={'Запросить посты'} />
+              Posts
+          </h1>
           <PostFilter filter={filter} setFilter={setFilter} />
-          {
-              posts.length
-                ?
-                sortedAndSearchedPosts.length
-                    ? sortedAndSearchedPosts.map((post, index) => {
-                      return <PostItem post={post} count={index + 1} key={post.id} deletePost={deletePost}/>;
-                  })
-                    : <div style={{textAlign: 'center', margin: '20px'}}>Поиск не дал результатов</div>
-
-                : <div style={{textAlign: 'center', margin: '20px'}}>Постов нет</div>
-          }
+          <PostList sortedPosts={sortedAndSearchedPosts} deletePost={deletePost} posts={posts} />
       </div>
     );
 }

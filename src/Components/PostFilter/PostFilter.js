@@ -1,10 +1,11 @@
 import React from 'react';
 import Input from '../UI/Input/Input';
-import Select from '../Select/Select';
+import Select from '../UI/Select/Select';
+import classes from './PostFilter.module.css'
 
 const PostFilter = ({filter, setFilter}) => {
     return (
-      <div>
+      <div className={classes.filter}>
           <Input value={filter.query} onChange={e => setFilter({...filter, query: e.target.value})} type={'text'} ph={'Search'}/>
           <Select
             defoultValue="Сортировка"
