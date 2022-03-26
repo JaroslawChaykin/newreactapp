@@ -2,7 +2,9 @@
 .App {
   width: 800px;
 }
-
+* {
+  color: #242424;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;

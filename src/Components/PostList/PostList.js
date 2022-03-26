@@ -13,7 +13,7 @@ const PostList = ({sortedPosts, deletePost, posts}) => {
     }
     return (
       <div>
-          <TransitionGroup>
+          <TransitionGroup className={'post-list'}>
               {sortedPosts.map((post, index) =>
                   <CSSTransition
                     key={post.id}

@@ -13,7 +13,7 @@ const PostItem = (props) => {
               <Counter />
           </div>
           <div className="post__btns">
-              <button onClick={() => props.deletePost(props.post)}>Удалить</button>
+              <button onClick={() => props.deletePost(props.post)}>+</button>
           </div>
       </div>
     );
