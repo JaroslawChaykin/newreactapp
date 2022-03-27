@@ -6,6 +6,7 @@
     right: 0;
     display: none;
     background: rgba(0, 0, 0, 0.32);
+    z-index: 999;
 }
 
 .modalContent {

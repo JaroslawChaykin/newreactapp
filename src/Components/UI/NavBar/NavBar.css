@@ -1,0 +1,25 @@
+ul li a{
+    text-decoration: none;
+}
+ul li {
+    list-style: none;
+}
+ul {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    width: 800px;
+    padding: 0;
+}
+
+.navBtn a{
+    border: 1px solid #0d6efd;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.5;
+    text-decoration: none;
+    vertical-align: middle;
+}
