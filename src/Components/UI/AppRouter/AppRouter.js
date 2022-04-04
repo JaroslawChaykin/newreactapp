@@ -1,17 +1,31 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import About from '../../../pages/About';
-import Posts from '../../../pages/Posts';
-import ErrorLink from '../../../pages/ErrorLink';
+import { privateRoutes, publicRoutes } from '../../../router';
 
 const AppRouter = () => {
+    const isAuth = true;
     return (
-      <Routes>
-          <Route path="/about" element={<About/>} />
-          <Route path="/posts" element={<Posts/>} />
-          <Route path="/404" element={<ErrorLink/>} />
-          <Route path={'*'} element={<Navigate replace to="/404" />} />
-      </Routes>
+      isAuth
+        ?
+        <Routes>
+            {
+                privateRoutes.map((route) => {
+                    return <Route key={route.id} path={route.path} element={route.element} exact={route.exact} />
+                })
+            }
+        </Routes>
+        :
+        <Routes>
+            {
+                publicRoutes.map((route) => {
+                    return <Route key={route.id} path={route.path} element={route.element} exact={route.exact} />
+                })
+            }
+
+            {/*<Route path="/404" element={<ErrorLink/>} />*/}
+            {/*<Route path={'*'} element={<Navigate replace to="/404" />} />*/}
+        </Routes>
+
     );
 };
 

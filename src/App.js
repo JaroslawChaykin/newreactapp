@@ -5,7 +5,6 @@ import NavBar from './Components/UI/NavBar/NavBar';
 import AppRouter from './Components/UI/AppRouter/AppRouter';
 
 function App() {
-
     return (
         <BrowserRouter>
             <NavBar />
@@ -13,6 +12,5 @@ function App() {
         </BrowserRouter>
     )
 }
-
 
 export default App;

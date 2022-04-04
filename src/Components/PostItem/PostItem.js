@@ -1,19 +1,22 @@
 import React from 'react';
 import './PostItem.css'
-import Counter from '../Counter/Counter';
+import { useNavigate } from 'react-router-dom';
 
-const PostItem = (props) => {
+const PostItem = ({post, deletePost}) => {
+
+    const navigate = useNavigate()
+
     return (
       <div className={'post-item'}>
           <div className="post__content">
-              <strong>{props.post.id}. {props.post.title}</strong>
+              <strong>{post.id}. {post.title}</strong>
               <div>
-                  {props.post.body}
+                  {post.body}
               </div>
-              <Counter />
           </div>
           <div className="post__btns">
-              <button onClick={() => props.deletePost(props.post)}>+</button>
+              <button onClick={() => deletePost(post)}>+</button>
+              <button className={'toPage'} onClick={() => navigate(`/posts/${post.id}`)}>▷</button>
           </div>
       </div>
     );

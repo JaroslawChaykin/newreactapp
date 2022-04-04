@@ -24,3 +24,18 @@
     background: none;
     color: #0d6efd;
 }
+
+.container {
+    width: 800px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.form-container {
+    width: fit-content;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-direction: column;
+}
